@@ -1,5 +1,5 @@
 CREATE TABLE Equipe (
-    id_equipe NUMBER,
+    id_equipe VARCHAR2(50),
     nome VARCHAR2(50),
     data_criacao TIMESTAMP NOT NULL,
     campeonatos NUMBER,
@@ -10,7 +10,7 @@ CREATE TABLE Equipe (
     );
 
 CREATE TABLE Residencia(
-    cod_residencia_unificado NUMBER,
+    cod_residencia_unificado VARCHAR2(50),
     pais_atual VARCHAR2(50),
     estado VARCHAR2(50),
     municipio VARCHAR2(50),
@@ -20,12 +20,12 @@ CREATE TABLE Residencia(
     );
 
 CREATE TABLE Jogador(
-    id_jogador NUMBER,
+    id_jogador VARCHAR2(50),
 	nome VARCHAR2(50),
-    idade NUMBER,
+    data_nascimento TIMESTAMP NOT NULL,
     nacionalidade VARCHAR2(50),
-    cod_residencia_unificado NUMBER,
-    equipe_atual NUMBER,
+    cod_residencia_unificado VARCHAR2(50),
+    equipe_atual VARCHAR2(50),
     campeonatos NUMBER,
     trofeus NUMBER,
 
@@ -37,10 +37,10 @@ CREATE TABLE Jogador(
 
 
 CREATE TABLE Campeonato(
-    id_campeonato NUMBER,
+    id_campeonato VARCHAR2(50),
     nome VARCHAR2(50),
     ano TIMESTAMP NOT NULL,
-    equipe_campea NUMBER,
+    equipe_campea VARCHAR2(50),
     
     CONSTRAINT campeonato_pk PRIMARY KEY (id_campeonato),
     CONSTRAINT equipe_campea_fk FOREIGN KEY (equipe_campea) REFERENCES Equipe(id_equipe)
@@ -48,8 +48,8 @@ CREATE TABLE Campeonato(
 );
 
 CREATE TABLE Campeonatos_Participados_Equipe(
-    id_equipe NUMBER,
-    id_campeonato NUMBER,
+    id_equipe VARCHAR2(50),
+    id_campeonato VARCHAR2(50),
 
     CONSTRAINT campPart_pk PRIMARY KEY (id_equipe, id_campeonato),
     CONSTRAINT campPart_equipe_fk FOREIGN KEY (id_equipe) REFERENCES Equipe(id_equipe),
