@@ -50,6 +50,7 @@ CREATE TABLE Campeonato(
 CREATE TABLE Campeonatos_Participados_Equipe(
     id_equipe VARCHAR2(50),
     id_campeonato VARCHAR2(50),
+    ranking NUMBER,
 
     CONSTRAINT campPart_pk PRIMARY KEY (id_equipe, id_campeonato),
     CONSTRAINT campPart_equipe_fk FOREIGN KEY (id_equipe) REFERENCES Equipe(id_equipe),
