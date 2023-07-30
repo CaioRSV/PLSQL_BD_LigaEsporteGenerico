@@ -35,6 +35,16 @@ CREATE TABLE Jogador(
     
     );
 
+CREATE TABLE Jogador_Em_Equipe_Data(
+    id_jogador VARCHAR2(50),
+    ano TIMESTAMP NOT NULL,
+    equipe_na_data VARCHAR2(50),
+
+    CONSTRAINT jogadorEquipeData_pk PRIMARY KEY (id_jogador, ano),
+    CONSTRAINT jogadorEquipeData_jogador_fk FOREIGN KEY (id_jogador) REFERENCES Jogador(id_jogador),
+    CONSTRAINT jogadorEquipeData_equipe_fk FOREIGN KEY (equipe_na_data) REFERENCES Equipe(id_equipe)
+);
+
 
 CREATE TABLE Campeonato(
     id_campeonato VARCHAR2(50),
