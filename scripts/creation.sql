@@ -50,6 +50,7 @@ CREATE TABLE Campeonato(
     id_campeonato VARCHAR2(50),
     nome VARCHAR2(50),
     ano TIMESTAMP NOT NULL,
+    tipo VARCHAR2(50),
     equipe_campea VARCHAR2(50),
     
     CONSTRAINT campeonato_pk PRIMARY KEY (id_campeonato),

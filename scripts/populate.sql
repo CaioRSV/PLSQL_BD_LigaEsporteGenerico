@@ -10,12 +10,16 @@ INSERT INTO Equipe VALUES ('E#009', 'Ishmaria', TO_DATE('2016-01-01', 'YYYY-MM-D
 INSERT INTO Equipe VALUES ('E#010', 'Jacarés', TO_DATE('2015-01-01', 'YYYY-MM-DD'), 0, 0);
 INSERT INTO Equipe VALUES ('E#011', 'KYS!N!', TO_DATE('2014-01-01', 'YYYY-MM-DD'), 0, 0);
 INSERT INTO Equipe VALUES ('E#012', 'Lmao', TO_DATE('2013-01-01', 'YYYY-MM-DD'), 0, 0);
+-- Abaixo inutil pra testes
+INSERT INTO Equipe VALUES ('E#013', 'Zeroes at the left', TO_DATE('2013-01-01', 'YYYY-MM-DD'), 0, 0);
+--
+
 
 
 
 -- Equipe 1 (ABCers)
 INSERT INTO Residencia VALUES('R#001', 'Brasil', 'Pernambuco', 'Vitória de St. Antão');
-INSERT INTO Jogador VALUES ('J#001', 'João', TO_DATE('1993-01-01', 'YYYY-MM-DD'), 'Brasileiro', 'R#001', 'E#001', 0, 0);
+INSERT INTO Jogador VALUES ('J#001', 'João', TO_DATE('1993-01-01', 'YYYY-MM-DD'), 'Brasileiro', 'R#001', 'E#001', 0, 12);
 INSERT INTO Jogador_Em_Equipe_Data VALUES ('J#001', TO_DATE('2023-01-01', 'YYYY-MM-DD'), 'E#001');
 
 INSERT INTO Residencia VALUES('R#002','Chile', 'Grande Santiago', 'Santiago');
@@ -129,7 +133,7 @@ INSERT INTO Jogador_Em_Equipe_Data VALUES ('J#024', TO_DATE('2023-01-01', 'YYYY-
 
 -- Criando camp sample
 
-INSERT INTO Campeonato VALUES ('C#001', 'Campeonato Number 1',TO_DATE('2023-08-01', 'YYYY-MM-DD'), 'E#002');
+INSERT INTO Campeonato VALUES ('C#001', 'Campeonato Number 1',TO_DATE('2023-01-01', 'YYYY-MM-DD'), 'Mundial', 'E#002');
 
 --Adicionando participação nos camps
 
@@ -145,3 +149,9 @@ INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#009', 'C#001', 9);
 INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#010', 'C#001', 10);
 INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#011', 'C#001', 11);
 INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#012', 'C#001', 12);
+
+
+-- Outro camp sample
+
+INSERT INTO Campeonato VALUES ('C#002', 'Campeonato Number 2',TO_DATE('2023-01-01', 'YYYY-MM-DD'), 'Nacional', 'E#002');
+INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#005', 'C#002', 3);
