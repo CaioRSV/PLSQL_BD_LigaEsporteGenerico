@@ -67,3 +67,4 @@ CREATE TABLE Campeonatos_Participados_Equipe(
     CONSTRAINT campPart_equipe_fk FOREIGN KEY (id_equipe) REFERENCES Equipe(id_equipe),
     CONSTRAINT campPart_camp_fk FOREIGN KEY (id_campeonato) REFERENCES Campeonato(id_campeonato)
 );
+

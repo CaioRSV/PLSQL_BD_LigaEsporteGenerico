@@ -153,5 +153,5 @@ INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#012', 'C#001', 12);
 
 -- Outro camp sample
 
-INSERT INTO Campeonato VALUES ('C#002', 'Campeonato Number 2',TO_DATE('2023-01-01', 'YYYY-MM-DD'), 'Nacional', 'E#002');
+INSERT INTO Campeonato VALUES ('C#002', 'Campeonato Number 2',TO_DATE('2023-01-01', 'YYYY-MM-DD'), 'Mundial', 'E#002');
 INSERT INTO Campeonatos_Participados_Equipe VALUES ('E#005', 'C#002', 3);

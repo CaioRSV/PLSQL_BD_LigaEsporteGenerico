@@ -40,19 +40,33 @@ Campeonato INNER JOIN Campeonatos_Participados_Equipe ON Campeonato.id_campeonat
 WHERE (Campeonatos_Participados_Equipe.id_equipe = 'E#005') AND (Campeonato.tipo = 'Nacional') AND (Campeonatos_Participados_Equipe.ranking > 1)
 )
 );
+------------------
 
-CREATE OR REPLACE TRIGGER residencia_existente
-BEFORE INSERT ON Residencia
-FOR EACH ROW 
-DECLARE
-    valor NUMBER;
+CREATE OR REPLACE FUNCTION ContarJogadorRank1Mundial(
+    p_id_jogador IN Jogador.id_jogador%TYPE
+)
+RETURN NUMBER
+IS
+    v_count NUMBER := 0;
+BEGIN
+    SELECT COUNT(*) INTO v_count
+    FROM Jogador j
+    JOIN Jogador_Em_Equipe_Data jed ON j.id_jogador = jed.id_jogador
+    JOIN Equipe e ON jed.equipe_na_data = e.id_equipe
+    JOIN Campeonatos_Participados_Equipe cpe ON e.id_equipe = cpe.id_equipe
+    JOIN Campeonato c ON cpe.id_campeonato = c.id_campeonato
+    WHERE j.id_jogador = p_id_jogador
+    AND c.tipo = 'Mundial'
+    AND cpe.ranking = 1;
 
-BEGIN 
-    SELECT COUNT(*) INTO valor FROM Residencia WHERE
-    (pais_atual = :NEW.pais_atual) AND (estado = :NEW.estado) AND (municipio = :NEW.municipio);
-    
-    IF( valor > 0 )THEN
-         DBMS_OUTPUT.PUT_LINE('Já existe um código de residência equivalente ao local informado.');
-         RAISE_APPLICATION_ERROR(-20001, 'Já existe um código de residência equivalente ao local informado.');
-    END IF;
+    RETURN v_count;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 0;
+    WHEN OTHERS THEN
+        -- Handle exceptions here if needed
+        RETURN -1;
 END;
+/
+
+SELECT ContarJogadorRank1Mundial('J#003') AS count_jogador_mundial_rank_1 FROM DUAL;
