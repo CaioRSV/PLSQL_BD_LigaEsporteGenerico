@@ -9,5 +9,6 @@ Scripts de criação de banco de dados utilizando SQL/PL para um cenário imagin
 
 E há funções que conseguem passar informações sobre o banco de dados, como, por exemplo:
 -  Mostrar classificações de times em campeonatos
+-  Verificar quais jogadores estavam em quais times em determinado campeonato
 -  Verificar quais jogadores estavam em quais times em determinada data
 -  .
