@@ -5,7 +5,7 @@ CREATE OR REPLACE TYPE equipe_tp AS OBJECT (
 );
 
 --NT: equipes_participantes (Campeonatos)
---VARRAY: nacionalidade (Residencia)
+--VARRAY: nacionalidade (Jogador)
 /
 
 CREATE OR REPLACE TYPE residencia_tp AS OBJECT(
@@ -15,17 +15,35 @@ CREATE OR REPLACE TYPE residencia_tp AS OBJECT(
 	municipio VARCHAR2(50)
 );
 
+CREATE TABLE Residencia OF residencia_tp(
+	cod_residencia_unificado NOT NULL,
+	pais_atual NOT NULL,
+	estado NOT NULL,
+	municipio NOT NULL,
+);
 
 /
 
+CREATE OR REPLACE TYPE nacionalidade_tp AS OBJECT(
+    nacionalidade VARCHAR2(50)
+);
+
+/
+CREATE OR REPLACE TYPE varray_nacionalidade AS VARRAY(3) OF nacionalidade_tp;
+
+/
 CREATE OR REPLACE TYPE jogador_tp AS OBJECT (
 	id_jogador VARCHAR2(50),
 	nome VARCHAR2(50),
 	data_nascimento TIMESTAMP,
-    	nacionalidade VARCHAR2(50),
-    	cod_residencia_unificado VARCHAR2(50),
-    	equipe_atual VARCHAR2(50)
+    nacionalidade varray_nacionalidade,
+    cod_residencia_unificado VARCHAR2(50),
+    equipe_atual VARCHAR2(50)
 );
+
+
+
+
 
 /
 
@@ -34,6 +52,9 @@ CREATE OR REPLACE TYPE line_up_data_tp AS OBJECT(
 	ano TIMESTAMP,
 	equipe_na_data VARCHAR2(50)
 );
+
+/
+CREATE TYPE participacao_equipes_campeonatos_tp AS TABLE OF VARCHAR2(200);
 
 /
 
@@ -46,7 +67,6 @@ CREATE OR REPLACE TYPE campeonato_tp AS OBJECT(
 )
 --NESTED TABLE equipes_paticipantes STORE AS camp_participantes_nt;
 
-
 /
 
 CREATE OR REPLACE TYPE participacao_equipes_campeonatos_tp AS OBJECT(
@@ -56,3 +76,11 @@ CREATE OR REPLACE TYPE participacao_equipes_campeonatos_tp AS OBJECT(
 );
 
 -------
+
+CREATE TABLE Equipe OF equipe_tp(
+	id_equipe NOT NULL,
+	nome NOT NULL,
+	data_criacao NOT NULL,
+
+	CONSTRAINT equipe_pk PRIMARY KEY (id_equipe)
+)
