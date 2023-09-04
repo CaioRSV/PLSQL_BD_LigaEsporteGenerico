@@ -43,7 +43,7 @@ CREATE OR REPLACE TYPE line_up_data_tp AS OBJECT(
 );
 
 /
-CREATE OR REPLACE TYPE participacao_equipes_campeonatos_tp AS TABLE OF VARCHAR2(200);
+CREATE OR REPLACE TYPE participacao_equipes_campeonatos_nt AS TABLE OF VARCHAR2(200);
 
 /
 
@@ -60,9 +60,9 @@ CREATE OR REPLACE TYPE campeonato_tp AS OBJECT(
     	nome VARCHAR2(50),
     	ano TIMESTAMP,
     	tipo VARCHAR2(50),
-    	equipes_participantes participacao_equipes_campeonatos_tp
+    	equipes_participantes participacao_equipes_campeonatos_nt
 )
---NESTED TABLE equipes_paticipantes STORE AS camp_participantes_nt;
+--NESTED TABLE equipes_participantes STORE AS camp_participantes_nt;
 
 /
 -------
@@ -73,7 +73,6 @@ CREATE TABLE Equipe OF equipe_tp(
 
 	CONSTRAINT equipe_pk PRIMARY KEY (id_equipe)
 )
-
 
 /
 
@@ -86,3 +85,12 @@ CREATE TABLE Residencia OF residencia_tp(
 
 /
 
+CREATE TABLE Campeonato OF campeonato_tp(
+	id_campeonato NOT NULL,
+	nome NOT NULL,
+	ano NOT NULL,
+	tipo NOT NULL,
+
+	CONSTRAINT campeonato_pk PRIMARY KEY (id_campeonato)
+
+)NESTED TABLE equipes_participantes STORE AS camp_participantes_nt;
