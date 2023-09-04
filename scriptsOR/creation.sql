@@ -15,13 +15,6 @@ CREATE OR REPLACE TYPE residencia_tp AS OBJECT(
 	municipio VARCHAR2(50)
 );
 
-CREATE TABLE Residencia OF residencia_tp(
-	cod_residencia_unificado NOT NULL,
-	pais_atual NOT NULL,
-	estado NOT NULL,
-	municipio NOT NULL,
-);
-
 /
 
 CREATE OR REPLACE TYPE nacionalidade_tp AS OBJECT(
@@ -41,10 +34,6 @@ CREATE OR REPLACE TYPE jogador_tp AS OBJECT (
     equipe_atual VARCHAR2(50)
 );
 
-
-
-
-
 /
 
 CREATE OR REPLACE TYPE line_up_data_tp AS OBJECT(
@@ -54,7 +43,15 @@ CREATE OR REPLACE TYPE line_up_data_tp AS OBJECT(
 );
 
 /
-CREATE TYPE participacao_equipes_campeonatos_tp AS TABLE OF VARCHAR2(200);
+CREATE OR REPLACE TYPE participacao_equipes_campeonatos_tp AS TABLE OF VARCHAR2(200);
+
+/
+
+CREATE OR REPLACE TYPE participacao_equipes_campeonatos_tp AS OBJECT(
+	id_equipe VARCHAR2(50),
+	id_campeonato VARCHAR2(50),
+	ranking NUMBER
+);
 
 /
 
@@ -68,15 +65,7 @@ CREATE OR REPLACE TYPE campeonato_tp AS OBJECT(
 --NESTED TABLE equipes_paticipantes STORE AS camp_participantes_nt;
 
 /
-
-CREATE OR REPLACE TYPE participacao_equipes_campeonatos_tp AS OBJECT(
-	id_equipe VARCHAR2(50),
-	id_campeonato VARCHAR2(50),
-	ranking NUMBER
-);
-
 -------
-
 CREATE TABLE Equipe OF equipe_tp(
 	id_equipe NOT NULL,
 	nome NOT NULL,
@@ -84,3 +73,16 @@ CREATE TABLE Equipe OF equipe_tp(
 
 	CONSTRAINT equipe_pk PRIMARY KEY (id_equipe)
 )
+
+
+/
+
+CREATE TABLE Residencia OF residencia_tp(
+	cod_residencia_unificado NOT NULL,
+	pais_atual NOT NULL,
+	estado NOT NULL,
+	municipio NOT NULL
+);
+
+/
+
