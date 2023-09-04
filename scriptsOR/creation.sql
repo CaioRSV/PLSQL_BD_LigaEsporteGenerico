@@ -45,13 +45,15 @@ CREATE OR REPLACE TYPE BODY residencia_tp AS
         pais_atual VARCHAR2(50),
         estado VARCHAR2(50),
         municipio VARCHAR2(50)
-    ) RETURN SELF AS RESULT 
+    ) RETURN SELF
     IS 
     BEGIN
         SELF.cod_residencia_unificado := cod_residencia_unificado;
         SELF.pais_atual := pais_atual;
         SELF.estado := estado;
         SELF.municipio := municipio;
+        RETURN;
+
     END;
 END;
 
@@ -73,25 +75,47 @@ CREATE OR REPLACE TYPE jogador_tp AS OBJECT (
     cod_residencia_unificado VARCHAR2(50),
     equipe_atual VARCHAR2(50),
 
-    MEMBER FUNCTION mostrar_idade RETURN NUMBER
-
+    MEMBER FUNCTION mostrar_idade RETURN NUMBER,
+    MEMBER PROCEDURE info_jogador(SELF jogador_tp)--,
+    -- MAP MEMBER FUNCTION mostrar_nacionalidades RETURN VARCHAR2
 )NOT FINAL;
 
 /
 
 CREATE OR REPLACE TYPE BODY jogador_tp AS
     MEMBER FUNCTION mostrar_idade IS
-    anos_passados NUMBER;
+        anos_passados NUMBER;
+            BEGIN
+                anos_passados := TRUNC(SYSDATE) - TRUNC(data_nascimento);
+                RETURN anos_passados;
+            END;
+    MEMBER PROCEDURE info_jogador (SELF jogador_tp) IS
         BEGIN
-            anos_passados := TRUNC(SYSDATE) - TRUNC(data_nascimento);
-            RETURN anos_passados;
+            DBMS_OUTPUT.PUT_LINE('---');
+            DBMS_OUTPUT.PUT_LINE('Nome: ' || SELF.nome);
+            DBMS_OUTPUT.PUT_LINE('ID Equipe Atual: ' || SELF.equipe_atual);
+            DBMS_OUTPUT.PUT_LINE('---');
         END;
+    -- MAP MEMBER FUNCTION mostrar_nacionalidade IS
+    --     stringNacionalidades VARCHAR2;
+    --         BEGIN
+    --         stringNacionalidades := "";
+    --         -- 
+    --             FOR i IN ..self.nacionalidade.COUNT LOOP
+    --                 stringNacionalidades := stringNacionalidades|| SELF.nacionalidade.nacionalidade || ', '|| ;
+    --             END LOOP;
+    --             RETURN stringNacionalidades;
+
+    --         END;
+    
 END;
 
 /
 
 CREATE OR REPLACE TYPE tecnico_tp UNDER jogador_tp (
-    estilo_tatico VARCHAR2(50)
+    estilo_tatico VARCHAR2(50),
+
+    OVERRIDING MEMBER PROCEDURE info_jogador (SELF tecnico_tp)
 );
 
 
@@ -122,9 +146,13 @@ CREATE OR REPLACE TYPE campeonato_tp AS OBJECT(
 	id_campeonato VARCHAR2(50),
     nome VARCHAR2(50),
     ano TIMESTAMP,
-    tipo VARCHAR2(50),
+    tipo NUMBER,
     equipes_participantes participacao_equipes_campeonatos_nt
 );
+
+ALTER TYPE campeonato_tp ADD ATTRIBUTE (premios_eventoDoAno_nacional NUMBER(1)) CASCADE;
+ALTER TYPE campeonato_tp ADD ATTRIBUTE (premios_eventoDoAno_mundial NUMBER(1)) CASCADE;
+
 --NESTED TABLE equipes_participantes STORE AS camp_participantes_nt;
 
 /
