@@ -1,7 +1,7 @@
 CREATE OR REPLACE TYPE equipe_tp AS OBJECT (
 	id_equipe VARCHAR2(50),
 	nome VARCHAR2(50),
-	data_criacao TIMESTAMP,
+	data_criacao TIMESTAMP
 
     MEMBER PROCEDURE dados_equipe (SELF equipe_tp)
 ); 
@@ -41,10 +41,10 @@ CREATE OR REPLACE TYPE residencia_tp AS OBJECT(
 
 CREATE OR REPLACE TYPE BODY residencia_tp AS
     CONSTRUCTOR FUNCTION residencia_tp(
-        cod_residencia_unificado VARCHAR2(50),
-        pais_atual VARCHAR2(50),
-        estado VARCHAR2(50),
-        municipio VARCHAR2(50)
+        cod_residencia_unificado VARCHAR2,
+        pais_atual VARCHAR2,
+        estado VARCHAR2,
+        municipio VARCHAR2
     ) RETURN SELF
     IS 
     BEGIN
@@ -52,7 +52,7 @@ CREATE OR REPLACE TYPE BODY residencia_tp AS
         SELF.pais_atual := pais_atual;
         SELF.estado := estado;
         SELF.municipio := municipio;
-        RETURN;
+        RETURN SELF;
 
     END;
 END;
@@ -74,11 +74,20 @@ CREATE OR REPLACE TYPE jogador_tp AS OBJECT (
     nacionalidade varray_nacionalidade,
     cod_residencia_unificado VARCHAR2(50),
     equipe_atual VARCHAR2(50),
+    numero_camisa VARCHAR2(50),
+    lidera_jogadores REF jogador_tp,
+
+    equipe REF equipe_tp,
+    residencia REF residencia_tp,
+
 
     MEMBER FUNCTION mostrar_idade RETURN NUMBER,
-    MEMBER PROCEDURE info_jogador(SELF jogador_tp)--,
+    MEMBER PROCEDURE info_jogador(SELF jogador_tp), -- Talvez fizesse mais sentido como uma função
+    FINAL MEMBER FUNCTION mostrar_numero_camisa RETURN VARCHAR2--,
     -- MAP MEMBER FUNCTION mostrar_nacionalidades RETURN VARCHAR2
-)NOT FINAL;
+) NOT FINAL;
+
+-- lidera_jogadores SCOPE IS Jogador,
 
 /
 
@@ -89,6 +98,7 @@ CREATE OR REPLACE TYPE BODY jogador_tp AS
                 anos_passados := TRUNC(SYSDATE) - TRUNC(data_nascimento);
                 RETURN anos_passados;
             END;
+
     MEMBER PROCEDURE info_jogador (SELF jogador_tp) IS
         BEGIN
             DBMS_OUTPUT.PUT_LINE('---');
@@ -96,16 +106,30 @@ CREATE OR REPLACE TYPE BODY jogador_tp AS
             DBMS_OUTPUT.PUT_LINE('ID Equipe Atual: ' || SELF.equipe_atual);
             DBMS_OUTPUT.PUT_LINE('---');
         END;
-    -- MAP MEMBER FUNCTION mostrar_nacionalidade IS
-    --     stringNacionalidades VARCHAR2;
-    --         BEGIN
-    --         stringNacionalidades := "";
-    --         -- 
-    --             FOR i IN ..self.nacionalidade.COUNT LOOP
-    --                 stringNacionalidades := stringNacionalidades|| SELF.nacionalidade.nacionalidade || ', '|| ;
-    --             END LOOP;
-    --             RETURN stringNacionalidades;
 
+    MEMBER FUNCTION mostrar_numero_camisa IS
+        numCamisa VARCHAR2;
+            BEGIN
+                numCamisa := SELF.numero_camisa;
+                RETURN numCamisa;
+
+            END;
+
+    -- MAP MEMBER FUNCTION mostrar_nacionalidade IS
+    --     stringResult VARCHAR2;
+    --         BEGIN
+    --                 -- Insert code here
+    --             FOR i IN 1..self.nacionalidade.COUNT LOOP
+    --                 -- Concatenate each nacionalidade with a comma
+    --                 stringResult := stringResult || self.nacionalidade(i).nacionalidade;
+                    
+    --                 -- Add a comma and space unless it's the last element
+    --                 IF i < self.nacionalidade.COUNT THEN
+    --                     stringResult := stringResult || ', ';
+    --                 END IF;
+    --             END LOOP;
+
+    --             RETURN stringResult;
     --         END;
     
 END;
@@ -185,7 +209,7 @@ CREATE TABLE Jogador OF jogador_tp(
     equipe_atual NOT NULL,
 
     equipe WITH ROWID REFERENCES Equipe,
-    cod_residencia_unificado WITH ROWID REFERENCES Residencia
+    residencia WITH ROWID REFERENCES Residencia
 );
 
 /
