@@ -24,7 +24,8 @@ CREATE TABLE Telefone(
     telefone NUMBER, 
     pessoa VARCHAR(50), 
  
-    CONSTRAINT Telefone_fk FOREIGN KEY (pessoa) REFERENCES Pessoa (id_code) 
+    CONSTRAINT Telefone_fk FOREIGN KEY (pessoa) REFERENCES Pessoa (id_code),
+    CONSTRAINT telefone_pk PRIMARY KEY (telefone, pessoa)
 );
 --
 CREATE TABLE Equipe( 
@@ -102,7 +103,8 @@ CREATE TABLE Dec_Ref_Pessoa(
     pessoa_ref VARCHAR2(50), 
  
     CONSTRAINT dec_ref_p_fk FOREIGN KEY (declarante, data_declaracao) REFERENCES Declaracao (declarante, data_declaracao), 
-    CONSTRAINT pessoa_ref_fk FOREIGN KEY (pessoa_ref) REFERENCES Pessoa (id_code) 
+    CONSTRAINT pessoa_ref_fk FOREIGN KEY (pessoa_ref) REFERENCES Pessoa (id_code),
+    CONSTRAINT dec_ref_p_pk PRIMARY KEY (declarante, data_declaracao)
 );
 --
 CREATE TABLE Dec_Ref_Equipe( 
@@ -111,7 +113,8 @@ CREATE TABLE Dec_Ref_Equipe(
     equipe_ref VARCHAR2(50), 
  
     CONSTRAINT dec_ref_eq_fk FOREIGN KEY (declarante, data_declaracao) REFERENCES Declaracao (declarante, data_declaracao), 
-    CONSTRAINT equipe_ref_fk FOREIGN KEY (equipe_ref) REFERENCES Equipe (id_equipe) 
+    CONSTRAINT equipe_ref_fk FOREIGN KEY (equipe_ref) REFERENCES Equipe (id_equipe),
+    CONSTRAINT dec_ref_eq_pk PRIMARY KEY (declarante, data_declaracao)
 );
 --
 CREATE TABLE Dec_Ref_Campeonato( 
@@ -121,7 +124,8 @@ CREATE TABLE Dec_Ref_Campeonato(
  
      
     CONSTRAINT dec_ref_camp_fk FOREIGN KEY (declarante, data_declaracao) REFERENCES Declaracao (declarante, data_declaracao), 
-    CONSTRAINT camp_ref_fk FOREIGN KEY (camp_ref) REFERENCES Campeonato (id_camp) 
+    CONSTRAINT camp_ref_fk FOREIGN KEY (camp_ref) REFERENCES Campeonato (id_camp),
+    CONSTRAINT dec_ref_camp_pk PRIMARY KEY (declarante, data_declaracao)
 );
 --
 CREATE TABLE Dec_Ref_GM( 
@@ -130,7 +134,8 @@ CREATE TABLE Dec_Ref_GM(
     gm_ref VARCHAR2(50), 
  
     CONSTRAINT dec_ref_gm_fk FOREIGN KEY (declarante, data_declaracao) REFERENCES Declaracao (declarante, data_declaracao), 
-    CONSTRAINT gm_ref_fk FOREIGN KEY (gm_ref) REFERENCES Grupo_midiatico (id_grupo_midiatico) 
+    CONSTRAINT gm_ref_fk FOREIGN KEY (gm_ref) REFERENCES Grupo_midiatico (id_grupo_midiatico),
+    CONSTRAINT dec_ref_gm_pk PRIMARY KEY (declarante, data_declaracao)
 );
 --
 CREATE TABLE Cobre_camp( 
