@@ -81,3 +81,36 @@ CREATE TABLE Campeonato(
     data_fim DATE
 );
 --
+
+--
+CREATE TABLE Declaracao(
+    declarante VARCHAR2(50),
+    data_declaracao TIMESTAMP,
+    conteudo VARCHAR2(50),
+
+    CONSTRAINT Declaracao_comp_pk PRIMARY KEY (declarante, data_declaracao)
+);
+--
+CREATE TABLE Dec_Ref_Pessoa(
+    declarante VARCHAR2(50),
+    data_declaracao TIMESTAMP,
+    pessoa_ref VARCHAR2(50),
+
+    CONSTRAINT dec_ref_p_fk FOREIGN KEY (declarante, data_declaracao) REFERENCES Declaracao (declarante, data_declaracao),
+    CONSTRAINT pessoa_ref_fk FOREIGN KEY (pessoa_ref) REFERENCES Pessoa (pessoa_ref)
+);
+
+--
+CREATE TABLE Dec_Ref_Equipe(
+    declarante VARCHAR2(50),
+    data_declaracao TIMESTAMP,
+    equipe_ref VARCHAR2(50),
+
+    CONSTRAINT dec_ref_p_fk FOREIGN KEY (declarante, data_declaracao) REFERENCES Declaracao (declarante, data_declaracao),
+    CONSTRAINT equipe_ref_fk FOREIGN KEY (equipe_ref) REFERENCES Equipe (equipe_ref)
+);
+
+--
+CREATE TABLE Dec_Ref_Campeonato(
+
+);
