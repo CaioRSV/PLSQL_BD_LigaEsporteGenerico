@@ -141,19 +141,30 @@ CREATE TABLE Cobre_camp(
     CONSTRAINT Cobre_camp_pk PRIMARY KEY (campeonato, apresentador) 
 );
 --
-CREATE TABLE Participa_camp( 
+CREATE TABLE Jogador_participa_camp( 
     campeonato VARCHAR2(50), 
-    equipe VARCHAR2(50), 
-    jogador VARCHAR2(50), 
-    tecnico VARCHAR2(50), 
-    rank NUMBER, 
- 
-    CONSTRAINT part_camp_fk FOREIGN KEY (campeonato) REFERENCES Campeonato (id_camp), 
-    CONSTRAINT part_eq_fk FOREIGN KEY (equipe) REFERENCES Equipe (id_equipe), 
-    CONSTRAINT part_jog_fk FOREIGN KEY (jogador) REFERENCES Jogador (id_code), 
-    CONSTRAINT part_tec_fk FOREIGN KEY (tecnico) REFERENCES Tecnico (id_code), 
-    CONSTRAINT participa_camp_pk PRIMARY KEY (campeonato, jogador) 
-)
+    jogador VARCHAR2(50),
+    equipe VARCHAR2(50),
+    posicao VARCHAR2(50),
+    nota_performance NUMBER,
+
+    CONSTRAINT jog_part_camp_fk_camp FOREIGN KEY (campeonato) REFERENCES Campeonato (id_camp),
+    CONSTRAINT jog_part_camp_fk_jog FOREIGN KEY (jogador) REFERENCES Jogador (id_code),
+    CONSTRAINT jog_part_camp_pk PRIMARY KEY (campeonato, jogador),
+    CONSTRAINT jog_part_camp_eq_fk FOREIGN KEY (equipe) REFERENCES Equipe (id_equipe)
+);
+--
+CREATE TABLE Equipe_participa_camp( 
+    campeonato VARCHAR2(50),
+    equipe VARCHAR2(50),
+    tecnico VARCHAR2(50),
+    rank NUMBER,
+
+    CONSTRAINT equipe_part_camp_fk_camp FOREIGN KEY (campeonato) REFERENCES Campeonato (id_camp),
+    CONSTRAINT equipe_part_camp_fk_equipe FOREIGN KEY (equipe) REFERENCES Equipe (id_equipe),
+    CONSTRAINT equipe_part_camp_pk PRIMARY KEY (campeonato, equipe),
+    CONSTRAINT equipe_part_camp_tec_fk FOREIGN KEY (tecnico) REFERENCES Tecnico (id_code)
+);
 --
 CREATE TABLE Pontuacao_anual( 
     equipe VARCHAR2(50), 
@@ -164,12 +175,11 @@ CREATE TABLE Pontuacao_anual(
     CONSTRAINT pont_anual_pk PRIMARY KEY (equipe, ano) 
 );
 --
-CREATE TABLE Pontua_part_camp( 
-	campeonato VARCHAR2(50), 
-    equipe VARCHAR2(50), 
-    rank NUMBER, 
-    pontos_ganhos NUMBER, 
- 
-    CONSTRAINT ppc_camp_fk FOREIGN KEY (campeonato, equipe, rank) REFERENCES Participa_camp (campeonato, equipe, rank) 
-     
+CREATE TABLE Pontua(
+    campeonato VARCHAR2(50),
+    equipe VARCHAR2(50),
+    pontos_pelo_camp NUMBER,
+
+    CONSTRAINT pontua_fk FOREIGN KEY (campeonato, equipe) REFERENCES Equipe_participa_camp (campeonato, equipe),
+    CONSTRAINT pontua_pk PRIMARY KEY (campeonato, equipe)
 );
