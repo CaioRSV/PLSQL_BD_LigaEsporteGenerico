@@ -41,9 +41,11 @@ CREATE TABLE Jogador(
     num_camisa NUMBER,
     apelido VARCHAR2(50),
     time_atual VARCHAR2(50),
+    lidera VARCHAR2(50),
 
     CONSTRAINT Jogador_pessoa_fk FOREIGN KEY (id_code) REFERENCES Pessoa (id_code),
     CONSTRAINT Jogador_equipe_fk FOREIGN KEY (time_atual) REFERENCES Equipe (id_equipe)
+    CONSTRAINT Jogador_lideranca_fk FOREIGN KEY (lidera) REFERENCES Jogador (id_code),
 );
 --
 CREATE TABLE Tecnico(
@@ -53,5 +55,29 @@ CREATE TABLE Tecnico(
 
     CONSTRAINT Tecnico_pessoa_fk FOREIGN KEY (id_code) REFERENCES Pessoa (id_code),
     CONSTRAINT Tecnico_equipe_fk FOREIGN KEY (equipe_atual) REFERENCES Equipe (id_equipe)
+);
+--
+CREATE TABLE Grupo_midiatico(
+    id_grupo_midiatico VARCHAR2(50),
+    nome VARCHAR2(50),
+    data_criacao DATE,
+
+    CONSTRAINT Grupo_mid_pk PRIMARY KEY (id_grupo_midiatico)
+);
+--
+CREATE TABLE Apresentador(
+    id_code VARCHAR2(50),
+    funcao_principal VARCHAR2(50),
+    grupo_midiatico VARCHAR2(50),
+
+    CONSTRAINT Apresentador_gm_fk FOREIGN KEY (grupo_midiatico) REFERENCES Grupo_midiatico (id_grupo_midiatico)
+);
+--
+CREATE TABLE Campeonato(
+    id_camp VARCHAR2(50),
+    tipo_camp VARCHAR2(50),
+    nome_evento VARCHAR2(50),
+    data_inicio DATE,
+    data_fim DATE
 );
 --
