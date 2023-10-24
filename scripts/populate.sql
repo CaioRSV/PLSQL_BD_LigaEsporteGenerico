@@ -6,10 +6,10 @@ INSERT INTO Residencia (residencia_cod, pais, estado, municipio) VALUES ('#R002'
 -- Pessoa
 --INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) VALUES
 INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) 
-    VALUES ('#P001', 'João Pedro', 'jp@sports.com', TO_DATE('2000-01-01', 'YYYY-MM-DD'), 1, '#R001');
+    VALUES ('#P001', 'João Pedro', 'jp@sports.com', 11111, TO_DATE('2000-01-01', 'YYYY-MM-DD'), 1, '#R001');
 
 INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) 
-    VALUES ('#P001', 'Zero balo', 'zb@sports.com', TO_DATE('2002-01-01', 'YYYY-MM-DD'), 1, '#R002');
+    VALUES ('#P002', 'Zero balo', 'zb@sports.com', 22222, TO_DATE('2002-01-01', 'YYYY-MM-DD'), 1, '#R002');
 
 -- Telefone
 INSERT INTO Telefone (telefone, pessoa) VALUES (899999998, '#P001');
