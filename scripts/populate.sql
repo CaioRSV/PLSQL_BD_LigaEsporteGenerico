@@ -5,11 +5,19 @@ INSERT INTO Residencia (residencia_cod, pais, estado, municipio) VALUES ('#R002'
 
 -- Pessoa
 --INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) VALUES
+	-- Pessoas jogadores
 INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) 
     VALUES ('#P001', 'João Pedro', 'jp@sports.com', 11111, TO_DATE('2000-01-01', 'YYYY-MM-DD'), 1, '#R001');
 
 INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) 
     VALUES ('#P002', 'Zero balo', 'zb@sports.com', 22222, TO_DATE('2002-01-01', 'YYYY-MM-DD'), 1, '#R002');
+
+	-- Pessoas tecnicos
+INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) 
+    VALUES ('#P003', 'Zerivaldo Jones', 'zj@sports.com', 33333, TO_DATE('1980-02-02', 'YYYY-MM-DD'), 1, '#R001');
+
+INSERT INTO Pessoa (id_code, nome, email, cod_id_nacional, data_nascimento, status, residencia_cod) 
+    VALUES ('#P004', 'Alfredo Malla', 'am@sports.com', 44444, TO_DATE('1980-03-03', 'YYYY-MM-DD'), 1, '#R001');
 
 -- Telefone
 INSERT INTO Telefone (telefone, pessoa) VALUES (899999998, '#P001');
@@ -30,4 +38,9 @@ INSERT INTO Jogador (id_code, posicao_oficio, num_camisa, apelido, equipe_atual,
     ('#P002', 'Pos1', 50, 'Zero Bullet', '#E002', NULL);
 
 -- Tecnico
+INSERT INTO Tecnico (id_code, estilo_tatico, equipe_atual) VALUES
+    ('#P003', 'Agressivo', '#E001');
+
+INSERT INTO Tecnico (id_code, estilo_tatico, equipe_atual) VALUES
+    ('#P004', 'Cerco', '#E002');
 -- ...
