@@ -41,12 +41,12 @@ CREATE TABLE Jogador(
     posicao_oficio VARCHAR2(50), 
     num_camisa NUMBER, 
     apelido VARCHAR2(50), 
-    time_atual VARCHAR2(50), 
+    equipe_atual VARCHAR2(50), 
     liderado_por VARCHAR2(50), 
  
     CONSTRAINT Jogador_pk PRIMARY KEY (id_code), 
     CONSTRAINT Jogador_pessoa_fk FOREIGN KEY (id_code) REFERENCES Pessoa (id_code), 
-    CONSTRAINT Jogador_equipe_fk FOREIGN KEY (time_atual) REFERENCES Equipe (id_equipe), 
+    CONSTRAINT Jogador_equipe_fk FOREIGN KEY (equipe_atual) REFERENCES Equipe (id_equipe), 
     CONSTRAINT Jogador_liderado_fk FOREIGN KEY (liderado_por) REFERENCES Jogador (id_code) 
      
 );
