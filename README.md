@@ -3,12 +3,23 @@ Projeto de prática de banco de dados de uma liga de uma competição de esporte
 
 Scripts de criação de banco de dados utilizando SQL/PL para um cenário imaginário de uma Liga de Esportes qualquer, onde:
 
+-  Há Pessoas
+    - Jogadores
+        - Há jogadores liderados por outros jogadores
+    - Tecnicos
+    - Apresentadores
+    - Não-classificados
+-  Há Equipes
+    - Equipes tem jogadores
+    - Equipes tem um técnico
+    - Há Pontuação Anual de cada equipe
 -  Há Campeonatos
--  Há equipes que participam dos campeonatos
--  Há jogadores que fazem parte das equipes
-
-E há funções que conseguem passar informações sobre o banco de dados, como, por exemplo:
--  Mostrar classificações de times em campeonatos
--  Verificar quais jogadores estavam em quais times em determinado campeonato
--  Verificar quais jogadores estavam em quais times em determinada data
--  .
+    - Cada campeonato tem elencos diferentes para cada equipe
+        - Para cada equipe em um campeonato, podem se ter vários jogadores mas apenas 1 técnico
+        - Uma equipe pode participar de vários campeonatos com vários jogadores ou técnicos
+        - Cada jogador (e técnico) pode ser membro de apenas uma equipe por campeonato
+    - Cada campeonato contribui uma quantidade de pontos para a pontuação anual da equipe
+-  Há Grupos Midiáticos
+    - Grupos midiáticos tem integrantes (apresentadores)
+    - Há Cobertura de Campeonatos por Grupos Midiáticos
+-  Há Declarações (feitas por pessoas) referente a pessoas, grupo midiático, campeonato, ou equipes
