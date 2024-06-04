@@ -1,6 +1,6 @@
 # PLSQL_BD_LigaEsporteGenerico
 ---
-Projeto de prática de banco de dados de uma liga de uma competição de esporte qualquer.
+Projeto de pessoal envolvendo banco de dados de uma suposta liga de uma competição de esporte qualquer.
 
 Scripts de criação de banco de dados utilizando SQL/PL para um cenário imaginário de uma Liga de Esportes qualquer, onde:
 
